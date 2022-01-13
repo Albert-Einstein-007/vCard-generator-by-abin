@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vCard Maker☺️</title>
+  
+  <style>
+  				
+  				#fst{
+  								display: flex;
+  							margin-bottom: 10px;
+  								
+  				}
+  				
+  				#fst input{
+  								max-width: 35%;
+  								margin-right: 5px;
+  				}
+  				
+  				}
+  				#nd{
+  								display: flex;
+  								flex-direction: row;
+  								margin-bottom: 10px;
+  				}
+  				
+  				
+  				input:hover{
+  								border: 3px solid red;
+  								font-size: 20px;
+  								transition: .2s;
+  								border-radius: 20px ;
+  				}
+  				
+  				input:focus{
+  								outline: none;
+  								
+  				}
+  				#nd input:hover{
+  								font-size: 18px;
+  				}
+  				input{border: 1px solid #ff00b2;}
+  				button{
+  								background: #ff0073;
+  								color: white;
+  								border: 1px solid #fff100;
+  								border-radius: 20px;
+  				}
+  				button:hover{background: #ff3400; border: 1px solid #b900ff; transition: .1s;}
+  				
+  				code , code:hover , code:focus{
+  								outline: none;
+  								border: none;
+  				}
+  				
+  </style>
+  
+</head>
+
+<!-- 
+
+Coded By Abin K J
+Copyright ©️ ABIN K J
+GitHub : https://github.com/albert-einstein-007
+WhatsApp : https://wa.me/+918590814463
+Instagram : https://instagram.com/_mr_pops_
+Telegram : https://t.me/ar_pops_yt
+
+Thanks For Checking My Site🤗
+
+
+
+
+
+
+
+
+ -->
+
+
+<body>
+  
+  <!--Input Starts Here-->
+  
+  
+  <div id="fst">
+  				<input type="text" id="name" placeholder="Name Here">
+  <input type="number" id="num" placeholder="Number Here">
+  <button onclick="creat()">Add To List</button>
+  
+  </div>
+  
+  
+  <div id="nd">
+  				<input type="text" placeholder="File Name" id="filenm">
+  <button onclick="generate()">Generate File</button>
+  </div>
+  
+  <!--vCard Code shows Here-->
+  
+  <div id="card" contenteditable>
+    
+    
+  </div>
+  
+<!--Main Script Starts Here-->
+
+  <script type="text/javascript" charset="utf-8">
+  
+/* Creation Of vCard Occurs in This Function*/
+    
+    function creat(){
+      
+/*Input data stores in 2 variables*/
+          
+      var name = document.getElementById("name").value;
+      var num = document.getElementById("num").value;
+    
+ /*Creating A "CODE" element to print the input as vCard Code , 
+ Every vCard Will Creat It's own "Code element"
+ */
+    
+      let code = document.createElement("code")
+          
+          
+ /*Check How Many Words The Name Contains and Stores In To A Variable Named "wordCount"*/     
+          
+      var wordCount = name.match(/(\w+)/g).length;
+      
+ /*Split The Name Before And After a White Space and Stores In To A Variable Such as "fsnm" & "ndnm" 
+ Here fsnm = first name
+      ndnm = second name
+ */
+      
+      var fsnm = name.substr(0,name.indexOf(' '));
+      var ndnm = name.substr(name.indexOf(' ')+1);
+          
+         
+
+ /*Check The Mobile Number Contains 10 digits*/    
+ 
+ 
+    if (num.length == 10){
+           
+/*If It Has 10 digits , Check The Numnet Of Words In The Name Input Field*/
+        	
+        if (wordCount >= 2) {
+
+/*If The Name Contains 2 or More Then 2 words
+printing of splited words
+creating of vCard Code
+Creating Of Code element
+Implementation of vCard Code In To The Code Element
+Reseting Of Input Elements
+will Occures Here */
+
+        	code.innerHTML = "<br>BEGIN:VCARD<br>VERSION:3.0<br>N:"+ndnm+";"+fsnm+";;;<br>FN:"+name+"<br>TEL;TYPE=CELL:+91"+num+"<br>END:VCARD";
+          const div = document.getElementById("card");
+          div.appendChild(code)
+          var name = document.getElementById("name").value="";
+    var num = document.getElementById("num").value="";
+         												
+     	}else{
+     	  
+/*If The Name Contains Only 1 Word There Is No Need Of Splitting Of Words So
+creating of vCard Code
+Creating Of Code element
+Implementation of vCard Code In To The Code Element
+Reseting Of Input Elements
+will Occures Here */
+
+
+         												
+        code.innerHTML = "<br>BEGIN:VCARD<br>VERSION:3.0<br>N:;"+name+";;;<br>FN:"+name+"<br>TEL;TYPE=CELL:+91"+num+"<br>END:VCARD";
+          const div = document.getElementById("card");
+          div.appendChild(code)
+          var name = document.getElementById("name").value="";
+    var num = document.getElementById("num").value="";
+         												
+/*Implementation Of vCard Code Is Completed*/		
+         								}
+         				
+ /*If The Mobile Number Has No 10 digits, It Gives an Alert Message*/
+         }else{
+         				alert("Enter A Vlid Mobile Number")
+         }
+     }
+     
+     
+     function generate() {
+     
+    //inputTextToSave--> the text area from which the text to save is
+    //taken from
+
+    var textToSave = document.getElementById("card").innerText;
+    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    
+    //inputFileNameToSaveAs-->The text field in which the user input for 
+    //the desired file name is input into.
+    
+    var fileNameToSaveAs = document.getElementById("filenm").value;
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+console.log(textToSave);
+    downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
+
+/*
+
+Coded By Abin K J
+Copyright ©️ ABIN K J
+GitHub : https://github.com/albert-einstein-007
+WhatsApp : https://wa.me/+918590814463
+Instagram : https://instagram.com/_mr_pops_
+Telegram : https://t.me/ar_pops_yt
+
+Thanks For Checking My Site🤗
+*/
+
+       
+     
+    
+  </script>
+
+</body>
+
+</html>
