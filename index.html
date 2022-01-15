@@ -204,7 +204,7 @@ will Occures Here */
     var fileNameToSaveAs = document.getElementById("filenm").value;
 
     var downloadLink = document.createElement("a");
-    downloadLink.download = fileNameToSaveAs;
+    downloadLink.download = fileNameToSaveAs + ".vcf";
     downloadLink.innerHTML = "Download File";
     downloadLink.href = textToSaveAsURL;
     downloadLink.onclick = destroyClickedElement;
